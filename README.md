@@ -1,3 +1,3 @@
 # inzamam_inz
 
-Competitive programming
+Competitive Programming

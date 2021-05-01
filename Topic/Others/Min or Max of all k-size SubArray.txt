@@ -1,0 +1,29 @@
+void min_max_of_k_size_subarray( ll k )
+{
+      ll max_upto[ n ];
+ 
+      stack < ll > s;
+      s.push( 0 );
+
+      for ( ll i = 1; i < n; i++ ) {
+	    // n -> size of main array
+	    // A[ 0 ... n-1 ] -> main array
+            while ( !s.empty() && A[ s.top() ] (>/<) A[ i ] ) {  // for min ">" and for max "<"
+                  max_upto[ s.top() ] = i - 1;
+                  s.pop();
+            }
+            s.push( i );
+      }
+
+      while ( !s.empty() ) {
+            max_upto[ s.top() ] = n - 1;
+            s.pop();
+      }
+
+      ll j = 0;
+      for ( ll i = 0; i <= n - x; i++ ) {
+            while ( j < i || max_upto[ j ] < i + x - 1 )
+                  j++;
+            cout << A[ j ] << " ";
+      }
+}

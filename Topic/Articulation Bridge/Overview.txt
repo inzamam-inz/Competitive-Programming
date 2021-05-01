@@ -1,0 +1,19 @@
+#Blog:
+https://cp-algorithms.com/graph/bridge-searching.html
+
+
+#Video:
+https://www.youtube.com/watch?v=S7fIqu1LgJw  //part-1
+https://www.youtube.com/watch?v=ECKTyseo2H8  //part-2
+
+
+#Problem:
+https://www.spoj.com/problems/EC_P/
+
+
+#Note:
+Articulation Points and Relation With Bridges:
+https://www.youtube.com/watch?v=zuY5PtC1ogY
+-> End-points of a bridge will be an articulation point if that node has degree at leat 2.
+-> It is not necessary for an articulation point to be an end-point of a bridge.
+-> Finding bridge algorithm can not be used to find articulation point.

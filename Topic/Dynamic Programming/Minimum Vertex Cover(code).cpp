@@ -7,7 +7,7 @@ void DFSMVC( ll u )
       ll cost0 = 0; // if v is not taken
       ll cost1 = 1; // if v is taken
 
-      rep( i, 0, adj[ u ].size() ) {
+      for ( int i = 0; i < adj[ u ].size(); ++i ) {
             ll v = adj[ u ][ i ];
             if ( !vis[ v ] ) {
                   DFSMVC( v );

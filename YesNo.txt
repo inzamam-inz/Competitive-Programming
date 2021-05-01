@@ -1,0 +1,9 @@
+void YesNo( bool par )
+{
+      if ( par ) {
+	    cout << "Yes\n";
+      }
+      else {
+	    cout << "No\n";
+      }
+}

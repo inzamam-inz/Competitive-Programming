@@ -1,0 +1,25 @@
+ll marge_cost( ll L, ll R, ll M )
+{
+      // return cost for marging
+      // mats have int row and int col
+      return mats[ L ].row * mats[ M ].col * mats[ R ].col;
+}
+
+ll make_MCM( ll L, ll R )
+{
+      // Base case -> for interval size 1,2..
+      // DP[ mats.size ][ mats.size ] -> memo
+      if ( L >= R )  return 0;
+
+      if ( DP[ L ][ R ] != -1 ) {
+            return DP[ L ][ R ];
+      }
+
+      ll cost = 1e18;
+
+      for ( ll i = L; i < R; ++i ) {
+            cost = min( cost, make_MCM( L, i ) + make_MCM( i + 1, R ) + marge_cost( L, R, i ) );
+      }
+
+      return DP[ L ][R ] = cost;
+}

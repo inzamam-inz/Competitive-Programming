@@ -1,0 +1,32 @@
+int block_size = ??;
+int Block[ block_size + 5 ];
+
+
+int getBlock( int idx )
+{
+      return ( idx + block_size - 1 ) / block_size;    //for 1-base index
+      return idx / block_size;                         //for 0-base index
+}
+
+int getQueryAns( int L, int R )  //0-base index
+{
+      int ANS = 0;
+      int CL = L / block_size;
+      int CR = R / block_size;
+
+      if ( CL == CR ) {
+            for ( int i = L; i <= R; ++i )
+                  ANS += ArrName[ i ];
+      }
+      else {
+            for ( int i = L, LM = ( CL + 1 ) * block_size - 1; i <= LM; ++i )
+                  ANS += ArrName[ i ];
+            for ( int i = CL + 1; i <= CR - 1; ++i )
+                  ANS += Block[ i ];
+            for ( int i = CR * block_size; i <= R; ++i )
+                  ANS += ArrName[ i ];
+      }
+
+      return ANS;
+}
+//Update :   Block[ idx / block_size ] += ??

@@ -1,0 +1,14 @@
+#Blog:
+https://cp-algorithms.com/data_structures/sqrt_decomposition.html
+https://codeforces.com/blog/entry/81716
+https://www.topcoder.com/thrive/articles/Range%20Minimum%20Query%20and%20Lowest%20Common%20Ancestor#Introduction
+
+#Video:
+https://www.youtube.com/watch?v=7undZLA3_rU
+
+#Problem:
+https://www.spoj.com/problems/DQUERY/
+https://codeforces.com/contest/86/problem/D
+https://www.spoj.com/problems/FREQUENT/
+https://www.spoj.com/problems/FREQ2/
+https://codeforces.com/contest/1514/problem/D

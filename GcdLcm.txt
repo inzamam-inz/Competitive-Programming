@@ -1,9 +1,0 @@
-ll gcd( ll par1, ll par2 )
-{
-      return par2 ? gcd( par2, par1 % par2 ) : par1;
-}
-
-ll lcm( ll par1, ll par2 )
-{
-      return par1 * par2 / gcd( par1, par2 );
-}

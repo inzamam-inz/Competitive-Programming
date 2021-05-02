@@ -1,3 +1,7 @@
 # inzamam_inz
 
-Competitive Programming
+For competitive programming
+
+
+
+My online judge profiles list: https://clist.by/coder/inzamam_inz/

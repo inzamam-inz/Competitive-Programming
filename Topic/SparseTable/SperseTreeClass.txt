@@ -1,0 +1,42 @@
+class SparseTable {   /* Min / Max -> OK, if Sum -> Use SegmentTree  */
+      #define MX          200010
+      #define LOG         22
+      public:
+            int LOGBaseTwo[ MX ];
+            int SpT[ MX ][ LOG ];
+            int MinOrMax = -1; // if Min -> 0, Max -> 1;
+
+            SparseTable( int OP ) {
+                  this->MinOrMax = OP;
+            }
+
+            void MakeSparseTable( vector < int > &A ) {
+                  MakeLog();
+
+                  for ( int i = 0; i < A.size(); ++i )
+                        SpT[ i ][ 0 ] = A[ i ];
+
+                  for ( int i = 1; i < LOG; ++i ) {
+                        for ( int j = 0; j < A.size(); ++j )
+                              SpT[ j ][ i ] = Merge( SpT[ j ][ i - 1 ], SpT[ min( (int) A.size() - 1, j + ( 1 << ( i - 1 ) ) ) ][ i - 1 ] );
+                  }
+                  MakeLog();
+            }
+
+            int Merge( int A, int B ) {
+                  if ( MinOrMax )  return max( A, B );
+                  else             return min( A, B );
+            }
+
+            void MakeLog() {
+                  LOGBaseTwo[ 1 ] = 0;
+                  for ( int i = 2; i < MX; ++i )
+                        LOGBaseTwo[ i ] = LOGBaseTwo[ i / 2 ] + 1;
+            }
+
+            int GetNeed( int L, int R ) {
+                  assert( R >= L );
+                  int Log = LOGBaseTwo[ R - L + 1 ];
+                  return Merge( SpT[ L ][ Log ], SpT[ R - ( 1 << Log ) + 1 ][ Log ] );
+            }
+};

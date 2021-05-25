@@ -1,0 +1,3 @@
+Segment Tree Contest
+Link: https://vjudge.net/contest/436376
+Password: longein

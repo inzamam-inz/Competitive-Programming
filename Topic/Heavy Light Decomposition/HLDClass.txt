@@ -1,0 +1,92 @@
+vector < int > List[ ?? ];   // Tree's Adj List -> Need to Clear??
+
+
+class HeavyLightDecomposition {
+      #define L_R            ??
+      public:
+            vector < int > ValueOfNode;
+            vector < int > Position;
+            vector < int > Parent;
+            vector < int > Depth;
+            vector < int > Heavy;
+            vector < int > Head;
+            int CurrentPosition = 1; // 0/1 - index based
+            segmentTree ST = segmentTree( ?? ) / AnyQueryTree;
+
+            HeavyLightDecomposition( int NN ) {
+                  ValueOfNode.resize( NN );
+                  Position.resize( NN );
+                  Parent.resize( NN, -1 );
+                  Depth.resize( NN, 0 );
+                  Heavy.resize( NN, -1 );
+                  Head.resize( NN );
+            }
+
+            int DFS( int Vertex ) {
+                  int TotalSize = 1;
+                  int MaxChildSize = 0;
+
+                  for ( int i = 0; i < List[ Vertex ].size(); ++i ) {
+                        int Child = List[ Vertex ][ i ];
+                        if ( Child != Parent[ Vertex ] ) {
+                              Parent[ Child ] = Vertex;
+                              Depth[ Child ] = Depth[ Vertex ] + 1;
+                              int ChildSize = DFS( Child );
+                              TotalSize += ChildSize;
+                              if ( ChildSize > MaxChildSize ) {
+                                    MaxChildSize = ChildSize;
+                                    Heavy[ Vertex ] = Child;
+                              }
+                        }
+                  }
+
+                  return TotalSize;
+            }
+
+            void TreeDecompose( int Vertex, int Hd ) {
+                  Head[ Vertex ] = Hd;
+                  ST.A[ CurrentPosition ] = ValueOfNode[ Vertex ];
+                  Position[ Vertex ] = CurrentPosition++;
+                  if ( Heavy[ Vertex ] != -1 )
+                        TreeDecompose( Heavy[ Vertex ], Hd );
+
+                  for ( int i = 0; i < List[ Vertex ].size(); ++i ) {
+                        int Child = List[ Vertex ][ i ];
+                        if ( Child != Parent[ Vertex ] && Child != Heavy[ Vertex ] )
+                              TreeDecompose( Child, Child );
+                  }
+            }
+
+            void MakeQueryTree( ) { // ?? = Number of Node in Tree;
+                  //Build Query Data Structure
+                  ??
+            }
+
+            int Query( int NodeA, int NodeB ) {
+                  int Res = 0;
+                  while ( Head[ NodeA ] != Head[ NodeB ] ) {
+                        if ( Depth[ Head[ NodeA ] ] > Depth[ Head[ NodeB ] ] )
+                              swap( NodeA, NodeB );
+                        int CurrentPathResult = ST.rangeQuery( L_R, Position[ Head[ NodeB ] ], Position[ NodeB ] ).Value;
+                        Res = ??( Res, CurrentPathResult );
+                        NodeB = Parent[ Head[ NodeB ] ];
+                  }
+                  if ( Depth[ NodeA ] > Depth[ NodeB ] )
+                        swap( NodeA, NodeB );
+                  int LastHeavyPathResult = ST.rangeQuery( L_R, Position[ NodeA ], Position[ NodeB ] ).Value;
+                  Res = ??( Res, LastHeavyPathResult );
+                  return Res;
+            }
+
+            int Update( int NodeA, int NodeB, int X ) {
+                  while ( Head[ NodeA ] != Head[ NodeB ] ) {
+                        if ( Depth[ Head[ NodeA ] ] > Depth[ Head[ NodeB ] ] )
+                              swap( NodeA, NodeB );
+                        ST.rangeUpdate( L_R, Position[ Head[ NodeB ] ], Position[ NodeB ], X );
+                        NodeB = Parent[ Head[ NodeB ] ];
+                  }
+                  if ( Depth[ NodeA ] > Depth[ NodeB ] )
+                        swap( NodeA, NodeB );
+                  ST.rangeUpdate( L_R, Position[ NodeA ], Position[ NodeB ], X );
+            }
+};

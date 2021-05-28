@@ -1,81 +1,81 @@
-class segmentTree {
-      #define LC( idx )      idx * 2
-      #define RC( idx )      idx * 2 + 1
+class SegmentTree {
+      #define Lc( idx )      Idx * 2
+      #define Rc( idx )      Idx * 2 + 1
       public:
-            struct node {
+            struct Node {
                   int Value;
                   int Lazy;
-                  node () {
+                  Node () {
                         this->Value = ??;
                         this->Lazy = ??;
                   }
             };
-            vector < node > segT;
+            vector < Node > SegT;
             vector < int > A;
 
-            segmentTree( int sz ) {
+            SegmentTree( int sz ) {
                   // need to clear!
-                  segT.resize( 4 * sz + 10 );
+                  SegT.resize( 4 * sz + 10 );
                   A.resize( sz + 1 );
             }
 
-            node merge( node L, node R ) {
-                  node F;
+            Node Merge( Node L, Node R ) {
+                  Node F;
                   F = ??
                   return F;
             }
 
-            void Relax( int L, int R, int idx ) {
+            void Relax( int L, int R, int Idx ) {
                   //Do something
 
-                  segT[ idx ].Lazy = ??; //after Relaxing
+                  SegT[ Idx ].Lazy = ??; //after Relaxing
             }
 
-            void makeSegmentTree( int L, int R, int idx ) {
+            void MakeSegmentTree( int L, int R, int Idx ) {
                   if ( L == R ) {
-                        segT[ idx ].Value = ??;
+                        SegT[ Idx ].Value = ??;
                         return;
                   }
 
                   int M = ( L + R ) / 2;
 
-                  makeSegmentTree( L, M, LC( idx ) );
-                  makeSegmentTree( M + 1, R, RC( idx ) );
-                  segT[ idx ] = merge( segT[ LC( idx ) ], segT[ RC( idx ) ] );
+                  MakeSegmentTree( L, M, Lc( Idx ) );
+                  MakeSegmentTree( M + 1, R, Rc( Idx ) );
+                  SegT[ idx ] = Merge( SegT[ Lc( Idx ) ], SegT[ Rc( Idx ) ] );
             }
 
-            node rangeQuery( int L, int R, int idx, int l, int r ) {
-                  Relax( L, R, idx );
+            Node RangeQuery( int L, int R, int Idx, int l, int r ) {
+                  Relax( L, R, Idx );
                   
-                  node F;
+                  Node F;
 
                   if ( L > r || R < l )    return F;
-                  if ( L >= l && R <= r )  return segT[ idx ];
+                  if ( L >= l && R <= r )  return SegT[ Idx ];
 
                   int M = ( L + R ) / 2;
 
-                  F = merge( rangeQuery( L, M, LC( idx ), l, r ), rangeQuery( M + 1, R, RC( idx ), l, r ) );
-                  segT[ idx ] = merge( segT[ LC( idx ) ], segT[ RC( idx ) ] ); //is it useful?
+                  F = Merge( RangeQuery( L, M, Lc( Idx ), l, r ), RangeQuery( M + 1, R, Rc( Idx ), l, r ) );
+                  SegT[ Idx ] = Merge( SegT[ Lc( Idx ) ], SegT[ Rc( Idx ) ] ); //is it useful?
 
                   return F;
             }
 
-            void rangeUpdate( int L, int R, int idx, int l, int r, int val ) {
-                  Relax( L, R, idx );
+            void RangeUpdate( int L, int R, int Idx, int l, int r, int Val ) {
+                  Relax( L, R, Idx );
 
                   if ( L > r || R < l )    return;
                   if ( L >= l && R <= r ) {
                         // Do something
-                        segT[ idx ].Lazy = ??;
-                        Relax( L, R, idx );
+                        SegT[ Idx ].Lazy = ??;
+                        Relax( L, R, Idx );
                         return;
                   }
 
                   int M = ( L + R ) / 2;
 
-                  rangeUpdate( L, M, LC( idx ), l, r, val );
-                  rangeUpdate( M + 1, R, RC( idx ), l, r, val );
+                  RangeUpdate( L, M, Lc( Idx ), l, r, Val );
+                  RangeUpdate( M + 1, R, Rc( Idx ), l, r, Val );
 
-                  segT[ idx ] = merge( segT[ LC( idx ) ], segT[ RC( idx ) ] );
+                  SegT[ Idx ] = Merge( SegT[ Lc( Idx ) ], SegT[ Rc( Idx ) ] );
             }
 };

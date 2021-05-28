@@ -1,0 +1,17 @@
+class Sieve {
+      public:
+            vector < int > Sie;
+            vector < int > Spf;
+
+            Sieve( int MSS ) {
+                  Spf.resize( MSS + 7, 0 );
+                  for ( int i = 2; i < MSS; ++i ) {
+                        if ( Spf[ i ] == 0 ) {
+                              Spf[ i ] = i;
+                              Sie.push_back( i );
+                        }
+                        for ( int j = 0; j < Sie.size() && i * Sie[ j ] <= MSS && Sie[ j ] <= Spf[ i ]; ++j )
+                              Spf[ i * Sie[ j ] ] = Sie[ j ];
+                  }
+            }
+};

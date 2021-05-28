@@ -1,26 +1,40 @@
 class UnionFind {
-      private: vector < int > par, SIZ;
       public:
+            vector < int > Par, Siz;
+            int StartingGroupCount;
             UnionFind( int sz ) {
+                  this->StartingGroupCount = sz;
                   for ( int i = 0; i < sz; ++i ) {
-                        par.push_back( i );
-                        SIZ.push_back( 1 );
+                        Par.push_back( i );
+                        Siz.push_back( ?? );  */ 1 / 0 */
                   }
             }
 
-            int find_root( int u ) {
-                  if ( par[ u ] != u )
-                        par[ u ] = find_root( par[ u ] );
+            int FindRoot( int u ) {
+                  if ( Par[ u ] != u )
+                        Par[ u ] = FindRoot( Par[ u ] );
 
-                  return par[ u ];
+                  return Par[ u ];
             }
 
-            void marge( int u, int v ) {
-                  if ( find_root( u ) != find_root( v ) ) {
-                        if ( SIZ[ par[ u ] ] <= SIZ[ par[ v ] ] )   swap( u, v );
+            void Merge( int u, int v ) {
+                  if ( FindRoot( u ) != FindRoot( v ) ) {
+                        if ( Siz[ Par[ u ] ] <= Siz[ Par[ v ] ] )   swap( u, v );
 
-                        SIZ[ par[ u ] ] += SIZ[ par[ v ] ];
-                        par[ par[ v ] ] = par[ u ];
+                        Siz[ Par[ u ] ] += Siz[ Par[ v ] ];
+                        Par[ Par[ v ] ] = Par[ u ];
                   }
+            }
+
+            int GetMaxGroupSize() {
+                  return *max_element( Siz.begin(), Siz.end() );
+            }
+
+            int GetNumberOfGroup() {
+                  vector < bool > Yes( StartingGroupCount, false );
+                  for ( int i = 0; i < StartingGroupCount; ++i ) { // ??
+                      if ( Siz[ i ] == ?? )  Yes[ FindRoot( i ) ] = true;
+                  }
+                  return count( Yes.begin(), Yes.end(), true );
             }
 };

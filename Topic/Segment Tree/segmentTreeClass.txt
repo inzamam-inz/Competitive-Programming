@@ -41,7 +41,7 @@ class SegmentTree {
 
                   MakeSegmentTree( L, M, Lc( Idx ) );
                   MakeSegmentTree( M + 1, R, Rc( Idx ) );
-                  SegT[ idx ] = Merge( SegT[ Lc( Idx ) ], SegT[ Rc( Idx ) ] );
+                  SegT[ Idx ] = Merge( SegT[ Lc( Idx ) ], SegT[ Rc( Idx ) ] );
             }
 
             Node RangeQuery( int L, int R, int Idx, int l, int r ) {

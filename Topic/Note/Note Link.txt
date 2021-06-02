@@ -3,3 +3,7 @@ https://github.com/Errichto/youtube/wiki/Learning-resources
 
 ShahjalalShohag
 https://github.com/ShahjalalShohag/How-To-Practice
+
+Random:
+https://sendtoaryansh.gitbook.io/informatics-notes/
+

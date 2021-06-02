@@ -1,0 +1,29 @@
+#ifndef ONLINE_JUDGE
+#define Debug( x )                        cerr << "#[ " << #x << " = "; PrintForDebug( x ); cerr << " ]\n";
+#else
+#define Debug( x )
+#endif
+
+
+
+template < class Type > void PrintForDebug( Type Var ) {
+      cerr << setprecision( 15 ) << Var;
+}
+
+template < class Type1, class Type2 > void PrintForDebug( pair < Type1, Type2 > Var ) {
+      cerr << "(";  PrintForDebug( Var.first );  cerr << ",";  PrintForDebug( Var.second );  cerr << ")";
+}
+
+template < class Type > void PrintForDebug( vector < Type > Var ) {
+      cerr << "{ ";
+      for ( int i = 0; i < Var.size(); ++i ) {
+            if ( i ) cerr << ", "; PrintForDebug( Var[ i ] );
+      } cerr << " } Size = " << Var.size();
+}
+
+template < class Type > void PrintForDebug( set < Type > Var ) {
+      cerr << "{ "; int Size = Var.size();
+      while ( !Var.empty() ) {
+             PrintForDebug( *Var.begin() ); Var.erase( Var.begin() ); if ( !Var.empty() )  cerr << ", ";
+      } cerr << " } Size = " << Size;
+}

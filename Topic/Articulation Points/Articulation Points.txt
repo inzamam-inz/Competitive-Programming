@@ -33,7 +33,7 @@ void DFSAP( int node, int parent )
 
 void findArticulationPoint()
 {
-      /* timer -> 0  and vis -> false */
+      /* timer -> 0  and vis -> false and articulationPoints -> clear */
       for ( int i = 0; i < N; ++i ) {
             if ( !vis[ i ] )
                   DFSAP( i, -1 );

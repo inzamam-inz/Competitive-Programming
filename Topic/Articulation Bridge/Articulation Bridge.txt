@@ -1,21 +1,21 @@
-int n; //Number of Nodes (0.....n-1)
-vector < int > ADJ[ N ];  // N = MAX of n
-vector < bool > VIS;
+int N; //Number of Nodes (0.....n-1)
+vector < int > List[ Nn ];  // N = MAX of n
+vector < bool > vis;
 vector < pair < int, int > > articulationBridges;
 int timer;
-int inTime[ N ], lowTime[ N ];
+int inTime[ Nn ], lowTime[ Nn ];
 
 
 void DFSAB( int node, int parent )
 {
-      VIS[ node ] = true;
+      vis[ node ] = true;
       inTime[ node ] = lowTime[ node ] = timer++;
 
-      for ( int i = 0; i < ADJ[ node ].size(); ++i ) {
-            int child = ADJ[ node ][ i ];
+      for ( int i = 0; i < List[ node ].size(); ++i ) {
+            int child = List[ node ][ i ];
             if ( child == parent )   continue;
 
-            if ( VIS[ child ] )      lowTime[ node ] = min( lowTime[ node ], inTime[ child ] );
+            if ( vis[ child ] )      lowTime[ node ] = min( lowTime[ node ], inTime[ child ] );
             else {
                   DFSAB( child, node );
                   lowTime[ node ] = min( lowTime[ child ], lowTime[ node ] );
@@ -28,8 +28,8 @@ void DFSAB( int node, int parent )
 void findArticulationBridge()
 {
       /* timer -> 0  and vis -> false */
-      for ( int i = 0; i < n; ++i ) {
-            if ( !VIS[ i ] )
+      for ( int i = 0; i < N; ++i ) {
+            if ( !vis[ i ] )
                   DFSAB( i, -1 );
       }
 }

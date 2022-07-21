@@ -8,7 +8,7 @@ class SegmentTree {
             node() {
                 this->value = ??;
                 this->lazy = ??;
-                }
+            }
         };
         vector <node> segT;
         vector <int> A;

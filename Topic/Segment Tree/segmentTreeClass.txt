@@ -1,82 +1,81 @@
 class SegmentTree {
-      #define Lc( idx )      idx * 2
-      #define Rc( idx )      idx * 2 + 1
-      public:
-            struct node {
-                  int value;
-                  int lazy;
-                  node () {
-                        this->value = ??;
-                        this->lazy = ??;
-                  }
-            };
-            vector < node > segT;
-            vector < int > A;
+    #define Lc(idx)      idx * 2
+    #define Rc(idx)      idx * 2 + 1
+    public:
+        struct node {
+            int value;
+            int lazy;
+            node() {
+                this->value = ??;
+                this->lazy = ??;
+                }
+        };
+        vector <node> segT;
+        vector <int> A;
 
-            SegmentTree( int sz ) {
-                  // need to clear!
-                  segT.resize( 4 * sz + 10 );
-                  A.resize( sz + 1 );
+        SegmentTree(int sz) {
+            // need to clear!
+            segT.resize(4 * sz + 10);
+            A.resize(sz + 1);
+        }
+
+        node Merge(node L, node R) {
+            node F;
+            F = ??
+            return F;
+        }
+
+        void Relax(int L, int R, int idx) {
+            //Do something
+
+            segT[idx].lazy = ??; //after Relaxing
+        }
+
+        void MakeSegmentTree(int L, int R, int idx) {
+            if (L == R) {
+                segT[idx].value = ??;
+                return;
             }
 
-            node Merge( node L, node R ) {
-                  node F;
-                  F = ??
-                  return F;
+            int M = (L + R) / 2;
+
+            MakeSegmentTree(L, M, Lc(idx));
+            MakeSegmentTree(M + 1, R, Rc(idx));
+            segT[idx] = Merge(segT[Lc(idx)], segT[Rc(idx)]);
+        }
+
+        node RangeQuery(int L, int R, int idx, int l, int r) {
+            Relax(L, R, idx);
+
+            node F;
+
+            if (L > r || R < l)    return F;
+            if (L >= l && R <= r)  return segT[idx];
+
+            int M = (L + R) / 2;
+
+            F = Merge(RangeQuery(L, M, Lc(idx), l, r), RangeQuery(M + 1, R, Rc(idx), l, r));
+            segT[idx] = Merge(segT[Lc(idx)], segT[Rc(idx)]); //is it useful?
+
+            return F;
+        }
+
+        void RangeUpdate(int L, int R, int idx, int l, int r, int lz) {
+            Relax(L, R, idx);
+
+            if (L > r || R < l)    return;
+            if (L >= l && R <= r) {
+                // Do something
+                segT[idx].lazy = ??;
+                Relax(L, R, idx);
+                return;
             }
 
-            void Relax( int L, int R, int idx ) {
-                  //Do something
+            int M = (L + R) / 2;
 
-                  segT[ idx ].lazy = ??; //after Relaxing
-            }
+            RangeUpdate(L, M, Lc(idx), l, r, lz);
+            RangeUpdate(M + 1, R, Rc(idx ), l, r, lz);
 
-            void MakeSegmentTree( int L, int R, int idx ) {
-                  if ( L == R ) {
-                        segT[ idx ].value = ??;
-                        return;
-                  }
-
-                  int M = ( L + R ) / 2;
-
-                  MakeSegmentTree( L, M, Lc( idx ) );
-                  MakeSegmentTree( M + 1, R, Rc( idx ) );
-                  segT[ idx ] = Merge( segT[ Lc( idx ) ], segT[ Rc( idx ) ] );
-            }
-
-            node RangeQuery( int L, int R, int idx, int l, int r ) {
-                  Relax( L, R, idx );
-
-                  node F;
-
-                  if ( L > r || R < l )    return F;
-                  if ( L >= l && R <= r )  return segT[ idx ];
-
-                  int M = ( L + R ) / 2;
-
-                  F = Merge( RangeQuery( L, M, Lc( idx ), l, r ), RangeQuery( M + 1, R, Rc( idx ), l, r ) );
-                  segT[ idx ] = Merge( segT[ Lc( idx ) ], segT[ Rc( idx ) ] ); //is it useful?
-
-                  return F;
-            }
-
-            void RangeUpdate( int L, int R, int idx, int l, int r, int lz ) {
-                  Relax( L, R, idx );
-
-                  if ( L > r || R < l )    return;
-                  if ( L >= l && R <= r ) {
-                        // Do something
-                        segT[ idx ].lazy = ??;
-                        Relax( L, R, idx );
-                        return;
-                  }
-
-                  int M = ( L + R ) / 2;
-
-                  RangeUpdate( L, M, Lc( idx ), l, r, lz );
-                  RangeUpdate( M + 1, R, Rc( idx ), l, r, lz );
-
-                  segT[ idx ] = Merge( segT[ Lc( idx ) ], segT[ Rc( idx ) ] );
-            }
+            segT[idx] = Merge( segT[Lc(idx)], segT[Rc(idx)]);
+        }
 };
-

@@ -1,0 +1,4 @@
+https://cp-algorithms.com/string/suffix-automaton.html
+
+https://vjudge.net/contest/514306
+pass: sam

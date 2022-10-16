@@ -1,17 +1,15 @@
-const Long MSS = ??;         //for sieve function
-vector < Long > Sie;         //for sieve function
-Long Spf[ MSS + 7 ];         //for sieve function
+const Long MSS = 1e5 + 10;  
+vector <Long> Sie;         
+Long Spf[MSS + 7];      
 
-void Sieve() 
-{    
-      // [ 1 - MSS ]
-      for ( Long i = 2; i < MSS; ++i ) {  
-            if ( Spf[ i ] == 0 ) {
-                  Spf[ i ] = i;   
-                  Sie.push_back( i );  
-            }    
-            for ( Long j = 0; j < Sie.size() && i * Sie[ j ] <= MSS && Sie[ j ] <= Spf[ i ]; ++j ) {
-                  Spf[ i * Sie[ j ] ] = Sie[ j ]; 
-            }
-      }
+void Sieve() {    
+    for (Long i = 2; i < MSS; ++i) {  
+        if (Spf[i] == 0) {
+            Spf[i] = i;   
+            Sie.push_back(i);  
+        }    
+        for (Long j = 0; j < Sie.size() && i * Sie[j] <= MSS && Sie[j] <= Spf[i]; ++j) {
+            Spf[i * Sie[j]] = Sie[j]; 
+        }
+    }
 }

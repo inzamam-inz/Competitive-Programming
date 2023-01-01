@@ -1,47 +1,49 @@
+const int Nn = 1e5 + 5;
 const int LOG = 20;
 
-vector < int > List[ N ];  // Tree's Adj List
-vector < int > Dist( N );
-int Ancestor[ N ][ LOG ];
-int inTime[ N ], outTime[ N ];
+vector <int> List[Nn];  // Tree's Adj List
+vector <int> Dist(Nn);
+int Ancestor[Nn][LOG];
+int inTime[Nn], outTime[Nn];
 int Timer;
 
 
-
-void DFS( int node, int parent )
-{
-      Dist[ node ] = Dist[ parent ] + 1;
-      inTime[ node ] = Timer;
-
-      Ancestor[ node ][ 0 ] = parent;
-      for ( int i = 1; i < LOG; ++i )
-            Ancestor[ node ][ i ] = Ancestor[ Ancestor[ node ][ i - 1 ] ][ i - 1 ];
-
-      for ( int i = 0; i < List[ node ].size(); ++i ) {
-            if ( List[ node ][ i ] != parent )
-                  DFS( List[ node ][ i ], node );
-      }
-
-      outTime[ node ] = ++Timer;
+void init(int N) {
+    Timer = 0;
+    for (int i = 0; i < N; ++i) {
+        List[i].clear();
+        Dist[i] = inTime[i] = outTime[i] = 0;
+    }
+    memset(Ancestor, 0, sizeof(Ancestor));
 }
 
-bool is_ancestor( int u, int v )
-{
-      return inTime[ u ] <= inTime[ v ] && outTime[ u ] >= outTime[ v ];
+void DFS(int node, int parent) {
+    Dist[node] = Dist[parent] + 1;
+    inTime[node] = Timer;
+
+    Ancestor[node][0] = parent;
+    for (int i = 1; i < LOG; ++i)
+        Ancestor[node][i] = Ancestor[Ancestor[node][i - 1]][i - 1];
+
+    for (int i = 0; i < List[node].size(); ++i) if (List[node][i] != parent)
+        DFS(List[node][i], node);
+
+    outTime[node] = ++Timer;
 }
 
-int LCA( int u, int v )  // Lowest Common Ancestor(LCA)
-{
-      if ( is_ancestor( u, v ) )    return u;
-      if ( is_ancestor( v, u ) )    return v;
-
-      for ( int i = 19; i >= 0; --i ) {
-            if ( !is_ancestor( Ancestor[ u ][ i ], v ) )
-                  u = Ancestor[ u ][ i ];
-      }
-
-      return Ancestor[ u ][ 0 ];
+bool is_ancestor(int u, int v) {
+    return inTime[u] <= inTime[v] && outTime[u] >= outTime[v];
 }
 
-// rooted tree(1-index based) -> DFS( root, 0 );
-// After DFS                  -> outTime[ 0 ] = Timer;
+int LCA(int u, int v) {
+    if (is_ancestor(u, v))    return u;
+    if (is_ancestor(v, u))    return v;
+
+    for (int i = 19; i >= 0; --i) if (!is_ancestor(Ancestor[u][i], v))
+        u = Ancestor[u][i];
+
+    return Ancestor[u][0];
+}
+
+// rooted tree(1-index based) -> DFS(root, 0 ;
+// After DFS                  -> outTime[0] = Timer;

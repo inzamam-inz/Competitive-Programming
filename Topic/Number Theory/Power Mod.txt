@@ -1,16 +1,12 @@
-Long PowerMod( Long par1, Long par2, Long par3 )
-{     /* ( par1 ^ par2 ) % par3 */
-      /* O( log(par2) ) */
-      
-      Long res = 1;
-      par1 %= par3;
-      assert( par2 >= 0 );
+Long PowerMod(Long par1, Long par2, Long par3) {     /* ( par1 ^ par2 ) % par3 */
+    Long res = 1;
+    par1 %= par3;
+    assert(par2 >= 0);
 
-      for( ; par2; par2 >>= 1 ) {
-            if ( par2 & 1 )
-                  res = res * par1 % par3;
-            par1 = par1 * par1 % par3;
-      }
+    for ( ; par2; par2 >>= 1) {
+        if (par2 & 1) res = res * par1 % par3;
+        par1 = par1 * par1 % par3;
+    }
 
-      return res;
+    return res;
 }

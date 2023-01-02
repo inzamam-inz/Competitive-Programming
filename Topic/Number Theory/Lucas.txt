@@ -1,0 +1,10 @@
+Long lucas(Long N, Long R, Long MOD) {
+    Long res = 1;
+    while (N) {
+        res = (res * nCr(N % MOD, R % MOD));
+        N /= MOD;
+        R /= MOD;
+    }
+    return res;
+}
+// return (NCR % MOD)

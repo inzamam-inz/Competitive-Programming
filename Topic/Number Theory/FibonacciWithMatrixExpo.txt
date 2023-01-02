@@ -8,3 +8,4 @@ pair <Long, Long> fib (Long n) {
     if (n & 1) return {d, c + d};
     else       return {c, d};
 }
+// return {Fn, Fn+1}
